@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ProductGrid } from '@/components/product/ProductGrid';
@@ -40,6 +42,7 @@ export default function Categories() {
 
   return (
     <div className="min-h-screen">
+      <Header />
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary/10 via-accent/5 to-background py-16">
         <div className="container mx-auto px-4">

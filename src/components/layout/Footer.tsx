@@ -13,12 +13,12 @@ export function Footer() {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">T</span>
+                <img src="/images/Sokkawhite.png" alt="Logo" className="h-5 w-5" />
               </div>
-              <span className="text-xl font-bold">TeeVerse</span>
+              <span className="text-xl font-bold">Sokka</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Your ultimate destination for character-inspired t-shirts from anime, movies, and TV series. 
+              Your ultimate destination for character-inspired t-shirts from anime, movies, and TV series.
               Quality designs that let you wear your fandom with pride.
             </p>
             <div className="flex space-x-2">
@@ -96,7 +96,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <div className="flex items-center space-x-2 text-sm text-muted-foreground">
             <Mail className="h-4 w-4" />
-            <span>support@teeverse.com</span>
+            <span>support@sokka.com</span>
           </div>
           <div className="flex items-center space-x-2 text-sm text-muted-foreground">
             <Phone className="h-4 w-4" />
@@ -112,7 +112,7 @@ export function Footer() {
 
         {/* Copyright */}
         <div className="text-center text-sm text-muted-foreground">
-          <p>&copy; 2024 TeeVerse. All rights reserved. Made with ❤️ for fans worldwide.</p>
+          <p>&copy; 2024 Sokka. All rights reserved. Made with ❤️ for fans worldwide.</p>
         </div>
       </div>
     </footer>

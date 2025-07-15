@@ -9,7 +9,7 @@ import { useStore } from '@/store/useStore';
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  
+
   const {
     cartItemCount,
     wishlist,
@@ -34,9 +34,10 @@ export function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">T</span>
+              <img src="/images/Sokkawhite.png" alt="Logo" className="h-5 w-5" />
             </div>
-            <span className="text-xl font-bold">TeeVerse</span>
+
+            <span className="text-xl font-bold">Sokka</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -80,8 +81,8 @@ export function Header() {
             <Button variant="ghost" size="icon" className="relative">
               <Heart className="h-5 w-5" />
               {wishlist.length > 0 && (
-                <Badge 
-                  variant="destructive" 
+                <Badge
+                  variant="destructive"
                   className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs"
                 >
                   {wishlist.length}
@@ -90,16 +91,16 @@ export function Header() {
             </Button>
 
             {/* Cart */}
-            <Button 
-              variant="ghost" 
-              size="icon" 
+            <Button
+              variant="ghost"
+              size="icon"
               className="relative"
               onClick={() => setCartOpen(true)}
             >
               <ShoppingCart className="h-5 w-5" />
               {cartItemCount > 0 && (
-                <Badge 
-                  variant="destructive" 
+                <Badge
+                  variant="destructive"
                   className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs"
                 >
                   {cartItemCount}
@@ -112,8 +113,8 @@ export function Header() {
               <Link to="/profile">
                 <Button variant="ghost" size="icon">
                   {user?.avatar ? (
-                    <img 
-                      src={user.avatar} 
+                    <img
+                      src={user.avatar}
                       alt={user.name}
                       className="h-6 w-6 rounded-full"
                     />
@@ -123,8 +124,8 @@ export function Header() {
                 </Button>
               </Link>
             ) : (
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="icon"
                 onClick={() => setAuthModalOpen(true)}
               >
@@ -133,9 +134,9 @@ export function Header() {
             )}
 
             {/* Mobile Menu */}
-            <Button 
-              variant="ghost" 
-              size="icon" 
+            <Button
+              variant="ghost"
+              size="icon"
               className="md:hidden"
               onClick={toggleMenu}
             >
@@ -148,35 +149,35 @@ export function Header() {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t">
             <nav className="flex flex-col space-y-2">
-              <Link 
-                to="/" 
+              <Link
+                to="/"
                 className="block px-4 py-2 text-foreground hover:text-primary transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Home
               </Link>
-              <Link 
-                to="/categories" 
+              <Link
+                to="/categories"
                 className="block px-4 py-2 text-foreground hover:text-primary transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Categories
               </Link>
-              <Link 
-                to="/about" 
+              <Link
+                to="/about"
                 className="block px-4 py-2 text-foreground hover:text-primary transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 About
               </Link>
-              <Link 
-                to="/contact" 
+              <Link
+                to="/contact"
                 className="block px-4 py-2 text-foreground hover:text-primary transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contact
               </Link>
-              
+
               {/* Mobile Search */}
               <form onSubmit={handleSearch} className="px-4 py-2">
                 <div className="relative">

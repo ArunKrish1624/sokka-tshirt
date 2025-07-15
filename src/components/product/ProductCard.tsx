@@ -15,12 +15,12 @@ interface ProductCardProps {
 export function ProductCard({ product, className }: ProductCardProps) {
   const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
-  
+
   const { addToCart, addToWishlist, removeFromWishlist, isInWishlist } = useStore();
-  
+
   const isWishlisted = isInWishlist(product.id);
   const hasDiscount = product.originalPrice && product.originalPrice > product.price;
-  const discountPercent = hasDiscount 
+  const discountPercent = hasDiscount
     ? Math.round(((product.originalPrice! - product.price) / product.originalPrice!) * 100)
     : 0;
 
@@ -37,14 +37,15 @@ export function ProductCard({ product, className }: ProductCardProps) {
   };
 
   return (
-    <Card className={cn("group overflow-hidden hover:shadow-lg transition-shadow", className)}>
+    <Card className={cn("group flex flex-col overflow-hidden hover:shadow-lg transition-shadow", className)}>
+      {/* Image section */}
       <div className="relative overflow-hidden">
         <img
           src={product.image}
           alt={product.name}
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
         />
-        
+
         {/* Badges */}
         <div className="absolute top-2 left-2 flex flex-col gap-1">
           {product.isNew && (
@@ -62,37 +63,38 @@ export function ProductCard({ product, className }: ProductCardProps) {
           className="absolute top-2 right-2 h-8 w-8 bg-background/80 hover:bg-background"
           onClick={handleWishlistToggle}
         >
-          <Heart 
+          <Heart
             className={cn(
               "h-4 w-4",
               isWishlisted ? "fill-destructive text-destructive" : "text-muted-foreground"
-            )} 
+            )}
           />
         </Button>
 
-        {/* Quick Actions */}
+        {/* Quick Actions Overlay */}
         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-          <div className="flex gap-2">
-            <Button size="sm" variant="secondary">
-              <Eye className="h-4 w-4 mr-1" />
-              Quick View
-            </Button>
-          </div>
+          <Button size="sm" variant="secondary">
+            <Eye className="h-4 w-4 mr-1" />
+            Quick View
+          </Button>
         </div>
       </div>
 
-      <CardContent className="p-4">
-        <div className="space-y-2">
-          <div className="flex items-start justify-between">
-            <h3 className="font-semibold text-sm leading-tight line-clamp-2">
-              {product.name}
-            </h3>
-          </div>
-          
-          <p className="text-xs text-muted-foreground">
+      {/* Content section */}
+      <CardContent className="flex flex-col flex-grow p-4 space-y-1">
+        {/* Product Info */}
+        <div className="min-h-[3rem]">
+          <h3 className="font-semibold text-m leading-tight line-clamp-2">
+            {product.name}
+          </h3>
+          <p className="text-xs text-muted-foreground mt-1">
             {product.character} • {product.franchise}
           </p>
-          
+        </div>
+
+        {/* Ratings and Price */}
+        <div className="flex items-center justify-between mt-auto">
+          {/* Ratings */}
           <div className="flex items-center gap-1">
             <div className="flex items-center">
               {Array.from({ length: 5 }).map((_, i) => (
@@ -112,10 +114,11 @@ export function ProductCard({ product, className }: ProductCardProps) {
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="font-bold">${product.price}</span>
+          {/* Price */}
+          <div className="flex flex-col items-end gap-0.5">
+            <span className="font-bold text-lg">${product.price}</span>
             {hasDiscount && (
-              <span className="text-sm text-muted-foreground line-through">
+              <span className="text-xs text-muted-foreground line-through">
                 ${product.originalPrice}
               </span>
             )}
@@ -123,7 +126,8 @@ export function ProductCard({ product, className }: ProductCardProps) {
         </div>
       </CardContent>
 
-      <CardFooter className="p-4 pt-0 space-y-3">
+      {/* Footer section */}
+      <CardFooter className="p-4 pt-0 flex flex-col gap-3">
         {/* Size Selection */}
         <div className="w-full">
           <p className="text-xs font-medium mb-2">Size:</p>
@@ -133,7 +137,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
                 key={size}
                 variant={selectedSize === size ? "default" : "outline"}
                 size="sm"
-                className="h-7 px-2 text-xs"
+                className="h-7 px-3 text-xs"
                 onClick={() => setSelectedSize(size)}
               >
                 {size}
@@ -145,24 +149,28 @@ export function ProductCard({ product, className }: ProductCardProps) {
         {/* Color Selection */}
         <div className="w-full">
           <p className="text-xs font-medium mb-2">Color:</p>
-          <div className="flex gap-1 flex-wrap">
+          <div className="flex gap-2 flex-wrap">
             {product.colors.map((color) => (
-              <Button
+              <button
                 key={color}
-                variant={selectedColor === color ? "default" : "outline"}
-                size="sm"
-                className="h-7 px-2 text-xs"
                 onClick={() => setSelectedColor(color)}
-              >
-                {color}
-              </Button>
+                className={`w-5 h-5 rounded-full border border-gray-400`}
+                style={{
+                  backgroundColor: color,
+                  boxShadow:
+                    selectedColor === color
+                      ? '0 0 0 2px rgba(147, 51, 234, 1)' // purple glow
+                      : 'none',
+                }}
+                aria-label={`Select ${color}`}
+              />
             ))}
           </div>
         </div>
 
-        {/* Add to Cart */}
-        <Button 
-          className="w-full" 
+        {/* Add to Cart button */}
+        <Button
+          className="w-full"
           size="sm"
           onClick={handleAddToCart}
         >
@@ -171,5 +179,6 @@ export function ProductCard({ product, className }: ProductCardProps) {
         </Button>
       </CardFooter>
     </Card>
+
   );
 }
