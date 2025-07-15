@@ -9,6 +9,7 @@ import { useStore } from '@/store/useStore';
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showMobileSearch, setShowMobileSearch] = useState(false); // 👈 New state
 
   const {
     cartItemCount,
@@ -23,12 +24,11 @@ export function Header() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle search functionality
     console.log('Search:', searchQuery);
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 px-4 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
@@ -36,7 +36,6 @@ export function Header() {
             <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
               <img src="/images/Sokkawhite.png" alt="Logo" className="h-5 w-5" />
             </div>
-
             <span className="text-xl font-bold">Sokka</span>
           </Link>
 
@@ -56,7 +55,7 @@ export function Header() {
             </Link>
           </nav>
 
-          {/* Search Bar */}
+          {/* Desktop Search Bar */}
           <form onSubmit={handleSearch} className="hidden lg:flex items-center space-x-2 flex-1 max-w-md mx-8">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
@@ -72,8 +71,13 @@ export function Header() {
 
           {/* Right Actions */}
           <div className="flex items-center space-x-2">
-            {/* Mobile Search */}
-            <Button variant="ghost" size="icon" className="md:hidden">
+            {/* Mobile Search Toggle Button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              onClick={() => setShowMobileSearch(!showMobileSearch)}
+            >
               <Search className="h-5 w-5" />
             </Button>
 
@@ -145,6 +149,26 @@ export function Header() {
           </div>
         </div>
 
+        {/* Slide-down Mobile Search Input */}
+        <div
+          className={`md:hidden overflow-hidden transition-all duration-300 ${
+            showMobileSearch ? 'max-h-20 mt-2' : 'max-h-0'
+          }`}
+        >
+          <form onSubmit={handleSearch} className="px-2 pb-2 mt-1">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+              <Input
+                type="search"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+          </form>
+        </div>
+
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t">
@@ -178,19 +202,7 @@ export function Header() {
                 Contact
               </Link>
 
-              {/* Mobile Search */}
-              <form onSubmit={handleSearch} className="px-4 py-2">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                  <Input
-                    type="search"
-                    placeholder="Search..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10"
-                  />
-                </div>
-              </form>
+              
             </nav>
           </div>
         )}

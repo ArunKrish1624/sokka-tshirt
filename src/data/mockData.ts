@@ -24,8 +24,8 @@ export const categories: Category[] = [
   },
   {
     id: '4',
-    name: 'Gaming',
-    slug: 'gaming',
+    name: 'Others', // ✅ Changed from Gaming
+    slug: 'others', // ✅ Changed from gaming
     image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop',
     productCount: 15
   }
@@ -160,7 +160,7 @@ export const products: Product[] = [
     description: 'Adorable Pikachu design on soft cotton tee. Perfect for Pokemon trainers of all ages.',
     price: 21.99,
     image: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&h=400&fit=crop',
-    category: 'Gaming',
+    category: 'Others', // ✅ Changed from Gaming
     character: 'Pikachu',
     franchise: 'Pokemon',
     sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
@@ -175,6 +175,6 @@ export const products: Product[] = [
 
 export const getFeaturedProducts = () => products.filter(p => p.isFeatured);
 export const getNewProducts = () => products.filter(p => p.isNew);
-export const getProductsByCategory = (category: string) => 
+export const getProductsByCategory = (category: string) =>
   products.filter(p => p.category.toLowerCase() === category.toLowerCase());
 export const getProductById = (id: string) => products.find(p => p.id === id);

@@ -32,7 +32,7 @@ const Index = () => {
               </Badge>
               <h2 className="text-3xl font-bold mb-4">Shop by Fandom</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Find your favorite characters from anime, movies, TV series, and games.
+                Find your favorite characters from anime, movies, TV series, and Othera.
               </p>
             </div>
 

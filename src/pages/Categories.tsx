@@ -52,7 +52,7 @@ export default function Categories() {
             </h1>
             
             <p className="text-lg text-muted-foreground">
-              Discover t-shirts from your favorite anime, movies, TV series, and games.
+              Discover t-shirts from your favorite anime, movies, TV series, and other.
             </p>
           </div>
         </div>
