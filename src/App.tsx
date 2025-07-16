@@ -9,6 +9,7 @@ import Contact from "./pages/Contact";
 import Categories from "./pages/Categories";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import ViewProduct from './pages/viewProduct';
 
 const queryClient = new QueryClient();
 
@@ -24,9 +25,14 @@ const App = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/profile" element={<Profile />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+
+          {/* Place custom dynamic routes BEFORE the catch-all */}
+          <Route path="/tshirt/:name" element={<ViewProduct />} />
+
+          {/* Catch-all 404 route must always be last */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

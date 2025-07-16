@@ -6,6 +6,7 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Product } from '@/types';
 import { useStore } from '@/store/useStore';
 import { cn } from '@/lib/utils';
+import { Link } from "react-router-dom";
 
 interface ProductCardProps {
   product: Product;
@@ -38,7 +39,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
 
   return (
     <Card className={cn("group flex flex-col overflow-hidden hover:shadow-lg transition-shadow", className)}>
-      {/* Image section */}
+      {/* Image Section */}
       <div className="relative overflow-hidden">
         <img
           src={product.image}
@@ -47,7 +48,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
         />
 
         {/* Badges */}
-        <div className="absolute top-2 left-2 flex flex-col gap-1">
+        <div className="absolute top-2 left-2 flex flex-col gap-1 z-20">
           {product.isNew && (
             <Badge className="bg-accent text-accent-foreground">New</Badge>
           )}
@@ -60,7 +61,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
         <Button
           variant="ghost"
           size="icon"
-          className="absolute top-2 right-2 h-8 w-8 bg-background/80 hover:bg-background"
+          className="absolute top-2 right-2 h-8 w-8 z-20 bg-background/80 hover:bg-background"
           onClick={handleWishlistToggle}
         >
           <Heart
@@ -72,7 +73,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
         </Button>
 
         {/* Quick Actions Overlay */}
-        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+        <div className="absolute inset-0 z-10 bg-black/50 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
           <Button size="sm" variant="secondary">
             <Eye className="h-4 w-4 mr-1" />
             Quick View
@@ -80,12 +81,15 @@ export function ProductCard({ product, className }: ProductCardProps) {
         </div>
       </div>
 
+
       {/* Content section */}
       <CardContent className="flex flex-col flex-grow p-4 space-y-1">
         {/* Product Info */}
         <div className="min-h-[3rem]">
           <h3 className="font-semibold text-m leading-tight line-clamp-2">
-            {product.name}
+            <Link to={`/tshirt/${encodeURIComponent(product.name)}`} className="hover:underline">
+              {product.name}
+            </Link>
           </h3>
           <p className="text-xs text-muted-foreground mt-1">
             {product.character} • {product.franchise}
