@@ -19,9 +19,9 @@ export default function Categories() {
   const filteredProducts = products.filter(product => {
     const matchesCategory = selectedCategory === 'all' || product.category.toLowerCase() === selectedCategory.toLowerCase();
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         product.character.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         product.franchise.toLowerCase().includes(searchQuery.toLowerCase());
-    
+      product.character.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.franchise.toLowerCase().includes(searchQuery.toLowerCase());
+
     return matchesCategory && matchesSearch;
   });
 
@@ -50,7 +50,7 @@ export default function Categories() {
             <h1 className="text-4xl lg:text-5xl font-bold">
               Shop by Category
             </h1>
-            
+
             <p className="text-lg text-muted-foreground">
               Discover t-shirts from your favorite anime, movies, TV series, and other.
             </p>
@@ -62,9 +62,9 @@ export default function Categories() {
         {/* Category Grid */}
         <section className="mb-12">
           <h2 className="text-2xl font-bold mb-6">Browse Categories</h2>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-            <Card 
+            <Card
               className={`cursor-pointer transition-all hover:shadow-lg ${selectedCategory === 'all' ? 'ring-2 ring-primary' : ''}`}
               onClick={() => setSelectedCategory('all')}
             >
@@ -78,7 +78,7 @@ export default function Categories() {
             </Card>
 
             {categories.map((category) => (
-              <Card 
+              <Card
                 key={category.id}
                 className={`cursor-pointer transition-all hover:shadow-lg ${selectedCategory === category.slug ? 'ring-2 ring-primary' : ''}`}
                 onClick={() => setSelectedCategory(category.slug)}
@@ -90,7 +90,11 @@ export default function Categories() {
                     className="w-16 h-16 object-cover rounded-lg mx-auto mb-3"
                   />
                   <h3 className="font-semibold">{category.name}</h3>
-                  <p className="text-sm text-muted-foreground">{category.productCount} items</p>
+                  <p className="text-sm text-muted-foreground">
+                    {
+                      products.filter(p => p.category.toLowerCase() === category.slug.toLowerCase()).length
+                    } items
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -102,8 +106,8 @@ export default function Categories() {
           <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between mb-6">
             <div className="flex items-center gap-2">
               <h2 className="text-xl font-semibold">
-                {selectedCategory === 'all' ? 'All Products' : 
-                 categories.find(c => c.slug === selectedCategory)?.name || 'Products'}
+                {selectedCategory === 'all' ? 'All Products' :
+                  categories.find(c => c.slug === selectedCategory)?.name || 'Products'}
               </h2>
               <Badge variant="secondary">
                 {sortedProducts.length} {sortedProducts.length === 1 ? 'item' : 'items'}
@@ -159,6 +163,7 @@ export default function Categories() {
           <ProductGrid products={sortedProducts} />
         </section>
       </div>
+      <Footer />
     </div>
   );
 }

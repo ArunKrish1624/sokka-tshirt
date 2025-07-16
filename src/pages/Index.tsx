@@ -8,7 +8,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { CartSheet } from '@/components/cart/CartSheet';
-import { categories, getFeaturedProducts, getNewProducts } from '@/data/mockData';
+import { categories, products, getFeaturedProducts, getNewProducts } from '@/data/mockData';
 import { ArrowRight, Sparkles, TrendingUp } from 'lucide-react';
 
 const Index = () => {
@@ -18,7 +18,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Header />
-      
+
       <main>
         <Hero />
 
@@ -47,7 +47,11 @@ const Index = () => {
                         className="w-20 h-20 object-cover rounded-lg mx-auto mb-4 group-hover:scale-105 transition-transform"
                       />
                       <h3 className="font-semibold mb-1">{category.name}</h3>
-                      <p className="text-sm text-muted-foreground">{category.productCount} designs</p>
+                      <p className="text-sm text-muted-foreground">
+                        {
+                          products.filter(p => p.category.toLowerCase() === category.slug.toLowerCase()).length
+                        } Designs
+                      </p>
                     </CardContent>
                   </Card>
                 </Link>

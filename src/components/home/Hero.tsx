@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { Link } from "react-router-dom";
 
 export function Hero() {
   return (
@@ -32,9 +33,11 @@ export function Hero() {
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
 
+              <Link to="/categories" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
               <Button variant="outline" size="lg">
                 Browse Categories
               </Button>
+              </Link>
             </div>
 
             <div className="flex items-center gap-8 text-sm">
@@ -71,14 +74,14 @@ export function Hero() {
               className="absolute -top-4 -right-4 bg-card border rounded-lg p-3 shadow-lg z-40 transition-all duration-300 group-hover:animate-floatTopCurve animate-floatTopReturn"
             >
               <div className="text-xs text-muted-foreground">Most Popular</div>
-              <div className="font-semibold">Anime Collection</div>
+              <div className="font-semibold">Series Collection</div>
             </div>
 
             <div
               className="absolute -bottom-4 -left-4 bg-card border rounded-lg p-3 shadow-lg z-40 transition-all duration-300 group-hover:animate-floatBottomCurve animate-floatBottomReturn"
             >
               <div className="text-xs text-muted-foreground">Free Shipping</div>
-              <div className="font-semibold">On Orders $50+</div>
+              <div className="font-semibold">On Orders ₹500+</div>
             </div>
 
             {/* Background Blobs */}
