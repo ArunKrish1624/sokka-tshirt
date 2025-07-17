@@ -50,7 +50,7 @@ export function ProductCard({
     >
       {/* For mobile list view layout (image on left, content on right) */}
       {viewMode === 'list' ? (
-        <div className="flex flex-row w-full items-start space-x-3">
+        <div className="flex flex-row w-full items-start space-x-3 h-40">
           {/* Image Section */}
           <div className="w-[40%] h-full">
             <Link to={`/tshirt/${encodeURIComponent(product.name)}`} className="block w-full">
