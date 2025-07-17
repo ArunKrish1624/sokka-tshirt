@@ -53,7 +53,7 @@ export function ProductCard({
         <div className="flex flex-row w-full items-start space-x-3 h-40">
           {/* Image Section */}
           <div className="w-[40%] h-full">
-            <Link to={`/tshirt/${encodeURIComponent(product.name)}`} className="block w-full">
+            <Link to={`/tshirt/${encodeURIComponent(product.name)}`} className="w-full">
               <img
                 src={product.image}
                 alt={product.name}
@@ -63,9 +63,9 @@ export function ProductCard({
           </div>
 
           {/* Content Section */}
-          <div className="w-[60%] px-3 py-4 flex flex-col justify-between">
+          <div className="w-[60%] px-3 py-4 h-full flex flex-col justify-between space-y-2">
             <div className="min-h-[3rem]">
-              <h3 className="font-semibold text-xl leading-tight line-clamp-2">
+              <h3 className="font-semibold text-lg leading-tight line-clamp-2">
                 <Link to={`/tshirt/${encodeURIComponent(product.name)}`} className="hover:underline">
                   {product.name}
                 </Link>
@@ -96,7 +96,7 @@ export function ProductCard({
               </div>
 
               <div className="flex flex-col items-end gap-0.5">
-                <span className="font-bold text-xl">₹{product.price}</span>
+                <span className="font-bold text-lg">₹{product.price}</span>
                 {!minimal && hasDiscount && (
                   <span className="text-xs text-muted-foreground line-through">
                     ₹{product.originalPrice}
@@ -105,21 +105,21 @@ export function ProductCard({
               </div>
             </div>
 
-            <div className="mt-2 flex gap-2">
-              <Link to={`/tshirt/${encodeURIComponent(product.name)}`} className="w-1/2">
-                <Button
-                  className="w-full border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white"
-                  size="sm"
-                  variant="outline"
-                >
-                  View Now
-                </Button>
-              </Link>
+            <div className="my-2 flex gap-2">
+              <div className="w-1/2">
+                <Link to={`/tshirt/${encodeURIComponent(product.name)}`}>
+                  <Button
+                    className="w-full px-2 py-1 text-xs sm:text-sm sm:px-3 sm:py-2 border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white"
+                    variant="outline"
+                  >
+                    View Now
+                  </Button>
+                </Link>
+              </div>
 
               <div className="w-1/2">
                 <Button
-                  className="w-full"
-                  size="sm"
+                  className="w-full px-2 py-1 text-xs sm:text-sm sm:px-3 sm:py-2"
                   onClick={handleAddToCart}
                   aria-label="Add to Cart"
                 >
@@ -127,6 +127,7 @@ export function ProductCard({
                   Add to Cart
                 </Button>
               </div>
+
             </div>
           </div>
         </div>
