@@ -131,8 +131,8 @@ export default function Categories() {
                 <button
                   key={category.id}
                   className={`flex-shrink-0 w-16 h-16 rounded-full border-2 ${selectedCategory === category.slug
-                      ? "border-primary"
-                      : "border-gray-300"
+                    ? "border-primary"
+                    : "border-gray-300"
                     }`}
                   onClick={() => setSelectedCategory(category.slug)}
                 >
@@ -203,7 +203,7 @@ export default function Categories() {
                 </SelectContent>
               </Select>
             </div>
-            <ProductGrid products={sortedProducts} minimal />
+            <ProductGrid products={sortedProducts} minimal viewMode={viewMode} />
           </main>
         </div>
       </div>

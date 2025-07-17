@@ -28,17 +28,22 @@ export function Hero() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="group">
+              <Button size="lg" className="group w-full sm:w-auto">
                 Shop Now
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
 
-              <Link to="/categories" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-              <Button variant="outline" size="lg">
-                Browse Categories
-              </Button>
+              <Link
+                to="/categories"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="block w-full sm:w-auto"
+              >
+                <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                  Browse Categories
+                </Button>
               </Link>
             </div>
+
 
             <div className="flex items-center gap-8 text-sm">
               <div className="text-center">

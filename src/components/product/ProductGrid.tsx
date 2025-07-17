@@ -4,10 +4,16 @@ import { Product } from '@/types';
 interface ProductGridProps {
   products: Product[];
   className?: string;
-  minimal?: boolean; // new prop
+  minimal?: boolean;
+  viewMode?: 'grid' | 'list'; 
 }
 
-export function ProductGrid({ products, className, minimal = false }: ProductGridProps) {
+export function ProductGrid({
+  products,
+  className,
+  minimal = false,
+  viewMode = 'grid',
+}: ProductGridProps) {
   if (products.length === 0) {
     return (
       <div className="text-center py-12">
@@ -16,10 +22,20 @@ export function ProductGrid({ products, className, minimal = false }: ProductGri
     );
   }
 
+  const containerClass =
+    viewMode === 'grid'
+      ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'
+      : 'flex flex-col gap-4';
+
   return (
-    <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 ${className}`}>
+    <div className={`${containerClass} ${className}`}>
       {products.map((product) => (
-        <ProductCard key={product.id} product={product} minimal={minimal} /> 
+        <ProductCard
+          key={product.id}
+          product={product}
+          minimal={minimal}
+          viewMode={viewMode}
+        />
       ))}
     </div>
   );
