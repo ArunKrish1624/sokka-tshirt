@@ -64,10 +64,10 @@ export default function ViewProduct() {
 
                         {/* Price */}
                         <div className="text-2xl font-bold">
-                            ${product.price}
+                        ₹{product.price}
                             {product.originalPrice && (
                                 <span className="text-lg ml-2 text-muted-foreground line-through">
-                                    ${product.originalPrice}
+                                    ₹{product.originalPrice}
                                 </span>
                             )}
                         </div>
@@ -183,7 +183,7 @@ export default function ViewProduct() {
                                     </Link>
                                     </h3>
                                     <p className="text-xs text-muted-foreground">{related.character}</p>
-                                    <p className="text-sm font-bold mt-1">${related.price}</p>
+                                    <p className="text-sm font-bold mt-1">₹{related.price}</p>
                                 </div>
                             ))}
                     </div>

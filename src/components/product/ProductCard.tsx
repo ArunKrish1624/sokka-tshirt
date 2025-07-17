@@ -11,9 +11,10 @@ import { Link } from "react-router-dom";
 interface ProductCardProps {
   product: Product;
   className?: string;
+  minimal?: boolean;
 }
 
-export function ProductCard({ product, className }: ProductCardProps) {
+export function ProductCard({ product, className, minimal = false }: ProductCardProps) {
   const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
 
@@ -30,24 +31,20 @@ export function ProductCard({ product, className }: ProductCardProps) {
   };
 
   const handleWishlistToggle = () => {
-    if (isWishlisted) {
-      removeFromWishlist(product.id);
-    } else {
-      addToWishlist(product);
-    }
+    isWishlisted ? removeFromWishlist(product.id) : addToWishlist(product);
   };
 
   return (
-    <Card className={cn("group flex flex-col overflow-hidden hover:shadow-lg transition-shadow", className)}>
-      {/* Image Section */}
+    <Card className={cn("group flex flex-col overflow-hidden hover:shadow-lg transition-shadow cursor-pointer", className)}>
       <div className="relative overflow-hidden">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-        />
+        <Link to={`/tshirt/${encodeURIComponent(product.name)}`}>
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+        </Link>
 
-        {/* Badges */}
         <div className="absolute top-2 left-2 flex flex-col gap-1 z-20">
           {product.isNew && (
             <Badge className="bg-accent text-accent-foreground">New</Badge>
@@ -57,7 +54,6 @@ export function ProductCard({ product, className }: ProductCardProps) {
           )}
         </div>
 
-        {/* Wishlist Button */}
         <Button
           variant="ghost"
           size="icon"
@@ -72,7 +68,6 @@ export function ProductCard({ product, className }: ProductCardProps) {
           />
         </Button>
 
-        {/* Quick Actions Overlay */}
         <div className="absolute inset-0 z-10 bg-black/50 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
           <Button size="sm" variant="secondary">
             <Eye className="h-4 w-4 mr-1" />
@@ -81,10 +76,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
         </div>
       </div>
 
-
-      {/* Content section */}
       <CardContent className="flex flex-col flex-grow p-4 space-y-1">
-        {/* Product Info */}
         <div className="min-h-[3rem]">
           <h3 className="font-semibold text-m leading-tight line-clamp-2">
             <Link to={`/tshirt/${encodeURIComponent(product.name)}`} className="hover:underline">
@@ -96,9 +88,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
           </p>
         </div>
 
-        {/* Ratings and Price */}
         <div className="flex items-center justify-between mt-auto">
-          {/* Ratings */}
           <div className="flex items-center gap-1">
             <div className="flex items-center">
               {Array.from({ length: 5 }).map((_, i) => (
@@ -118,10 +108,9 @@ export function ProductCard({ product, className }: ProductCardProps) {
             </span>
           </div>
 
-          {/* Price */}
           <div className="flex flex-col items-end gap-0.5">
             <span className="font-bold text-lg">₹{product.price}</span>
-            {hasDiscount && (
+            {!minimal && hasDiscount && (
               <span className="text-xs text-muted-foreground line-through">
                 ₹{product.originalPrice}
               </span>
@@ -130,59 +119,68 @@ export function ProductCard({ product, className }: ProductCardProps) {
         </div>
       </CardContent>
 
-      {/* Footer section */}
-      <CardFooter className="p-4 pt-0 flex flex-col gap-3">
-        {/* Size Selection */}
-        <div className="w-full">
-          <p className="text-xs font-medium mb-2">Size:</p>
-          <div className="flex gap-1 flex-wrap">
-            {product.sizes.map((size) => (
-              <Button
-                key={size}
-                variant={selectedSize === size ? "default" : "outline"}
-                size="sm"
-                className="h-7 px-3 text-xs"
-                onClick={() => setSelectedSize(size)}
-              >
-                {size}
-              </Button>
-            ))}
-          </div>
-        </div>
+      <CardFooter className="p-4 pt-0 mt-auto flex flex-col gap-3">
+        {minimal ? (
+          <Link to={`/tshirt/${encodeURIComponent(product.name)}`} className="w-full">
+            <Button
+              className="w-full border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white"
+              size="sm"
+              variant="outline"
+            >
+              View Now
+            </Button>
+          </Link>
+        ) : (
+          <>
+            <div className="w-full">
+              <p className="text-xs font-medium mb-2">Size:</p>
+              <div className="flex gap-1 flex-wrap">
+                {product.sizes.map((size) => (
+                  <Button
+                    key={size}
+                    variant={selectedSize === size ? "default" : "outline"}
+                    size="sm"
+                    className="h-7 px-3 text-xs"
+                    onClick={() => setSelectedSize(size)}
+                  >
+                    {size}
+                  </Button>
+                ))}
+              </div>
+            </div>
 
-        {/* Color Selection */}
-        <div className="w-full">
-          <p className="text-xs font-medium mb-2">Color:</p>
-          <div className="flex gap-2 flex-wrap">
-            {product.colors.map((color) => (
-              <button
-                key={color}
-                onClick={() => setSelectedColor(color)}
-                className={`w-5 h-5 rounded-full border border-gray-400`}
-                style={{
-                  backgroundColor: color,
-                  boxShadow:
-                    selectedColor === color
-                      ? '0 0 0 2px rgba(147, 51, 234, 1)' // purple glow
-                      : 'none',
-                }}
-                aria-label={`Select ${color}`}
-              />
-            ))}
-          </div>
-        </div>
+            <div className="w-full">
+              <p className="text-xs font-medium mb-2">Color:</p>
+              <div className="flex gap-2 flex-wrap">
+                {product.colors.map((color) => (
+                  <button
+                    key={color}
+                    onClick={() => setSelectedColor(color)}
+                    className="w-5 h-5 rounded-full border border-gray-400"
+                    style={{
+                      backgroundColor: color,
+                      boxShadow:
+                        selectedColor === color
+                          ? '0 0 0 2px rgba(147, 51, 234, 1)'
+                          : 'none',
+                    }}
+                    aria-label={`Select ${color}`}
+                  />
+                ))}
+              </div>
+            </div>
 
-        {/* Add to Cart button */}
-        <Button
-          className="w-full"
-          size="sm"
-          onClick={handleAddToCart}
-        >
-          <ShoppingCart className="h-4 w-4 mr-1" />
-          Add to Cart
-        </Button>
+            <Button
+              className="w-full"
+              size="sm"
+              onClick={handleAddToCart}
+            >
+              <ShoppingCart className="h-4 w-4 mr-1" />
+              Add to Cart
+            </Button>
+          </>
+        )}
       </CardFooter>
     </Card>
-
   );
 }
