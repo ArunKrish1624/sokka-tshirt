@@ -123,7 +123,7 @@ export function ProductCard({
                   onClick={handleAddToCart}
                   aria-label="Add to Cart"
                 >
-                  <ShoppingCart className="h-4 w-4 mr-1" />
+                  <ShoppingCart className="h-4 w-4 " />
                   Add to Cart
                 </Button>
               </div>
