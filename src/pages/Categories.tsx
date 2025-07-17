@@ -152,32 +152,38 @@ export default function Categories() {
 
             {/* Filters and Search */}
             <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
-              <div className="flex items-center gap-2">
-                <h2 className="text-xl font-semibold">
-                  {selectedCategory === 'all' ? 'All Products' :
-                    categories.find(c => c.slug === selectedCategory)?.name || 'Products'}
-                </h2>
-                <Badge variant="secondary">
-                  {sortedProducts.length} {sortedProducts.length === 1 ? 'item' : 'items'}
-                </Badge>
+              <div className="flex items-center justify-between w-full">
+                {/* Left side: Heading and Badge */}
+                <div className="flex items-center gap-2">
+                  <h2 className="text-xl font-semibold">
+                    {selectedCategory === 'all'
+                      ? 'All Products'
+                      : categories.find((c) => c.slug === selectedCategory)?.name || 'Products'}
+                  </h2>
+                  <Badge variant="secondary">
+                    {sortedProducts.length} {sortedProducts.length === 1 ? 'item' : 'items'}
+                  </Badge>
+                </div>
+
+                {/* Right side: View Mode Buttons */}
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant={viewMode === 'grid' ? 'default' : 'outline'}
+                    size="icon"
+                    onClick={() => setViewMode('grid')}
+                  >
+                    <Grid className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant={viewMode === 'list' ? 'default' : 'outline'}
+                    size="icon"
+                    onClick={() => setViewMode('list')}
+                  >
+                    <List className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
 
-              <div className="flex items-center gap-2">
-                <Button
-                  variant={viewMode === 'grid' ? 'default' : 'outline'}
-                  size="icon"
-                  onClick={() => setViewMode('grid')}
-                >
-                  <Grid className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant={viewMode === 'list' ? 'default' : 'outline'}
-                  size="icon"
-                  onClick={() => setViewMode('list')}
-                >
-                  <List className="h-4 w-4" />
-                </Button>
-              </div>
             </div>
 
             <div className="flex flex-col md:flex-row gap-4">
