@@ -10,6 +10,7 @@ import Categories from "./pages/Categories";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import ViewProduct from './pages/viewProduct';
+import AuthPage from './pages/AuthPage';
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,8 @@ const App = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/profile" element={<Profile />} />
+
+          <Route path="/auth" element={<AuthPage />} />
 
           {/* Place custom dynamic routes BEFORE the catch-all */}
           <Route path="/tshirt/:name" element={<ViewProduct />} />

@@ -128,13 +128,12 @@ export function Header() {
                 </Button>
               </Link>
             ) : (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setAuthModalOpen(true)}
-              >
-                <User className="h-5 w-5" />
-              </Button>
+              <Link to="/auth">
+                <Button variant="ghost" size="icon">
+                  <User className="h-5 w-5" />
+                </Button>
+              </Link>
+
             )}
 
             {/* Mobile Menu */}
@@ -151,9 +150,8 @@ export function Header() {
 
         {/* Slide-down Mobile Search Input */}
         <div
-          className={`md:hidden overflow-hidden transition-all duration-300 ${
-            showMobileSearch ? 'max-h-20 mt-2' : 'max-h-0'
-          }`}
+          className={`md:hidden overflow-hidden transition-all duration-300 ${showMobileSearch ? 'max-h-20 mt-2' : 'max-h-0'
+            }`}
         >
           <form onSubmit={handleSearch} className="px-2 pb-2 mt-1">
             <div className="relative">
@@ -202,7 +200,7 @@ export function Header() {
                 Contact
               </Link>
 
-              
+
             </nav>
           </div>
         )}
