@@ -77,7 +77,7 @@ export function AuthModal() {
     <Dialog open={isAuthModalOpen} onOpenChange={setAuthModalOpen}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Welcome to TeeVerse</DialogTitle>
+          <DialogTitle>Welcome to Sokka</DialogTitle>
           <DialogDescription>
             Sign in to your account or create a new one to start shopping.
           </DialogDescription>
