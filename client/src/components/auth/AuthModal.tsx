@@ -12,11 +12,14 @@ import {
 } from '@/components/ui/dialog';
 import { useStore } from '@/store/useStore';
 import { User } from '@/types';
+import axios from 'axios';
+
+const API = import.meta.env.VITE_API_BASE_URL;
 
 export function AuthModal() {
   const { isAuthModalOpen, setAuthModalOpen, login } = useStore();
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const [loginForm, setLoginForm] = useState({ email: '', password: '' });
   const [signupForm, setSignupForm] = useState({
     name: '',
@@ -25,52 +28,57 @@ export function AuthModal() {
     confirmPassword: ''
   });
 
+  // LOGIN HANDLER
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      const mockUser: User = {
-        id: '1',
-        name: 'John Doe',
-        email: loginForm.email,
-        joinDate: new Date().toISOString(),
-        orders: []
-      };
-      
-      login(mockUser);
+
+    try {
+      const res = await axios.post(`${API}/public/signin`, loginForm);
+      const user: User = res.data.user;
+
+      login(user);
       setAuthModalOpen(false);
-      setIsLoading(false);
       setLoginForm({ email: '', password: '' });
-    }, 1000);
+      localStorage.setItem('token', res.data.token);
+      alert('Login successful!');
+    } catch (error: any) {
+      alert(error.response?.data?.message || 'Login failed');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
+  // SIGNUP HANDLER
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (signupForm.password !== signupForm.confirmPassword) {
       alert('Passwords do not match');
       return;
     }
-    
+
     setIsLoading(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      const mockUser: User = {
-        id: '1',
+
+    try {
+      const res = await axios.post(`${API}/public/register`, {
         name: signupForm.name,
         email: signupForm.email,
-        joinDate: new Date().toISOString(),
-        orders: []
-      };
-      
-      login(mockUser);
+        password: signupForm.password,
+      });
+
+      const user: User = res.data.user;
+
+      login(user);
       setAuthModalOpen(false);
-      setIsLoading(false);
       setSignupForm({ name: '', email: '', password: '', confirmPassword: '' });
-    }, 1000);
+      localStorage.setItem('token', res.data.token);
+      alert('Account created successfully! You are now logged in.');
+    } catch (error: any) {
+      alert(error.response?.data?.message || 'Signup failed');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -102,7 +110,7 @@ export function AuthModal() {
                   required
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="login-password">Password</Label>
                 <Input
@@ -114,11 +122,11 @@ export function AuthModal() {
                   required
                 />
               </div>
-              
+
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? 'Signing in...' : 'Sign In'}
               </Button>
-              
+
               <div className="text-center">
                 <Button variant="link" size="sm">
                   Forgot password?
@@ -140,7 +148,7 @@ export function AuthModal() {
                   required
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="signup-email">Email</Label>
                 <Input
@@ -152,7 +160,7 @@ export function AuthModal() {
                   required
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="signup-password">Password</Label>
                 <Input
@@ -164,7 +172,7 @@ export function AuthModal() {
                   required
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="signup-confirm">Confirm Password</Label>
                 <Input
@@ -176,7 +184,7 @@ export function AuthModal() {
                   required
                 />
               </div>
-              
+
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? 'Creating account...' : 'Create Account'}
               </Button>
